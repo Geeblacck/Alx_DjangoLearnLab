@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from .models import Library, Book
 
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import get_object_or_404
+
+
 from django.contrib.auth.decorators import user_passes_test
 
 # ✅ Role check helpers
@@ -30,6 +34,48 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+# ✅ Add Book View
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        author_id = request.POST.get('author_id')
+        library_id = request.POST.get('library_id')
+        published_date = request.POST.get('published_date')
+
+        from .models import Author, Library, Book
+        author = get_object_or_404(Author, id=author_id)
+        library = get_object_or_404(Library, id=library_id)
+        Book.objects.create(title=title, author=author, library=library, published_date=published_date)
+        return redirect('list_books')
+
+    return render(request, 'relationship_app/add_book.html')
+
+
+# ✅ Edit Book View
+@permission_required('relationship_app.can_change_book')
+def edit_book(request, book_id):
+    from .models import Book
+    book = get_object_or_404(Book, id=book_id)
+
+    if request.method == 'POST':
+        book.title = request.POST.get('title')
+        book.save()
+        return redirect('list_books')
+
+    return render(request, 'relationship_app/edit_book.html', {'book': book})
+
+
+# ✅ Delete Book View
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    from .models import Book
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('list_books')
+
+    return render(request, 'relationship_app/delete_book.html', {'book': book})
 
 # ✅ Required imports for authentication
 from django.contrib.auth import login, logout, authenticate
