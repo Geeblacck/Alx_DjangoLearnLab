@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-# Tell Django to use your custom user model
+# Custom user model
 AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 # If you want profile photos to work in development
