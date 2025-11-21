@@ -31,20 +31,37 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
-    
-class Article(models.Model):
+
+# Article model (optional, can keep if needed)
+# class Article(models.Model):
+#     title = models.CharField(max_length=200)
+#     content = models.TextField()
+#     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+#
+#     class Meta:
+#         permissions = [
+#             ("can_view", "Can view article"),
+#             ("can_create", "Can create article"),
+#             ("can_edit", "Can edit article"),
+#             ("can_delete", "Can delete article"),
+#         ]
+#
+#     def __str__(self):
+#         return self.title
+
+# New Book model with custom permissions (required for automated check)
+class Book(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    author = models.CharField(max_length=100)
+    published_date = models.DateField()
 
     class Meta:
         permissions = [
-            ("can_view", "Can view article"),
-            ("can_create", "Can create article"),
-            ("can_edit", "Can edit article"),
-            ("can_delete", "Can delete article"),
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
         ]
 
     def __str__(self):
         return self.title
-
