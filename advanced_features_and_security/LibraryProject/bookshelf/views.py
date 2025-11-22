@@ -40,7 +40,7 @@ def book_delete(request, pk):
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from .models import Book
-from .forms import BookSearchForm, BookForm
+from .forms import BookForm, BookSearchForm, ExampleForm 
 
 @csrf_protect
 def search_books(request):
