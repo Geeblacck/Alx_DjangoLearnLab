@@ -136,3 +136,4 @@ REST_FRAMEWORK = {
 
 # REST Framework settings
 # TokenAuthentication is enabled, so users must provide token in request headers
+
