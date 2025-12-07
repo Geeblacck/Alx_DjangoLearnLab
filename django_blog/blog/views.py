@@ -101,3 +101,17 @@ class PostSearchView(ListView):
             Q(content__icontains=query) |
             Q(tags__name__icontains=query)
         ).distinct()
+
+# blog/views.py
+from django.views.generic import ListView
+from .models import Post, Tag
+from django.shortcuts import get_object_or_404
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'  # reuse post_list template
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs['tag_slug']
+        return Post.objects.filter(tags__slug=tag_slug)
