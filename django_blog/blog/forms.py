@@ -30,3 +30,17 @@ class PostForm(forms.ModelForm):
         widgets = {
             'tags': TagWidget(attrs={'class': 'form-control'}),
         }
+
+
+from django import forms
+from .models import Post
+from taggit.forms import TagWidget  # ✅ Add this line
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']  # include 'tags'
+        widgets = {
+            'tags': TagWidget(attrs={'class': 'form-control'}),  # ✅ Use TagWidget
+        }
