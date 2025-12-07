@@ -1,46 +1,25 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
+from taggit.forms import TagWidget  # ✅ for tags
 
+# -----------------------------
+# POST FORM
+# -----------------------------
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'tags']  # include 'tags'
+        widgets = {
+            'tags': TagWidget(attrs={'class': 'form-control'}),  # ✅ TagWidget
+        }
 
-from django import forms
-from .models import Comment
-
+# -----------------------------
+# COMMENT FORM
+# -----------------------------
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
         widgets = {
             'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add your comment...'})
-        }
-
-
-# blog/forms.py
-from django import forms
-from .models import Post
-from taggit.forms import TagWidget  # if using taggit
-
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['title', 'content', 'tags']
-        widgets = {
-            'tags': TagWidget(attrs={'class': 'form-control'}),
-        }
-
-
-from django import forms
-from .models import Post
-from taggit.forms import TagWidget  # ✅ Add this line
-
-
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['title', 'content', 'tags']  # include 'tags'
-        widgets = {
-            'tags': TagWidget(attrs={'class': 'form-control'}),  # ✅ Use TagWidget
         }
