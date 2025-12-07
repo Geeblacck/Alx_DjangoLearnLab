@@ -135,3 +135,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Login redirect
 LOGIN_REDIRECT_URL = 'blog:profile'
 LOGOUT_REDIRECT_URL = 'blog:login'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
