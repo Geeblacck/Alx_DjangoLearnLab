@@ -9,14 +9,13 @@
   <a href="{% url 'blog:post-delete' post.pk %}">Delete</a>
 {% endif %}
 <a href="{% url 'blog:post-list' %}">Back to all posts</a>
-{% endblock %}
 
-
+<hr>
 <h3>Comments</h3>
 
 {% for comment in post.comments.all %}
   <div>
-    <p>{{ comment.author.username }} said: {{ comment.content }}</p>
+    <p><strong>{{ comment.author.username }}</strong> said: {{ comment.content }}</p>
     <p>{{ comment.created_at }}</p>
     {% if user == comment.author %}
       <a href="{% url 'blog:comment-update' comment.pk %}">Edit</a>
@@ -33,15 +32,4 @@
   <p><a href="{% url 'login' %}">Login</a> to comment</p>
 {% endif %}
 
-
-
-{% if user.is_authenticated %}
-  <a href="{% url 'blog:comment-create' post.pk %}">Add a Comment</a>
-{% endif %}
-
-{% for comment in post.comments.all %}
-  {% if user == comment.author %}
-    <a href="{% url 'blog:comment-update' comment.pk %}">Edit</a>
-    <a href="{% url 'blog:comment-delete' comment.pk %}">Delete</a>
-  {% endif %}
-{% endfor %}
+{% endblock %}
