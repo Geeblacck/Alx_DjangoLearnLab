@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required   # ✅ Add this line
 from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
+
 
 # List all posts
 class PostListView(ListView):
