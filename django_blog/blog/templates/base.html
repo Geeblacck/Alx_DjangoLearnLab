@@ -29,3 +29,9 @@
   {% block content %}{% endblock %}
 </body>
 </html>
+
+
+<form method="get" action="{% url 'blog:post-search' %}">
+  <input type="text" name="q" placeholder="Search posts..." required>
+  <button type="submit">Search</button>
+</form>

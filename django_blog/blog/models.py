@@ -34,3 +34,16 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:post-detail', kwargs={'pk': self.post.pk})
+
+# blog/models.py
+from django.db import models
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Post(models.Model):
+    # ... existing fields ...
+    tags = models.ManyToManyField(Tag, blank=True, related_name='posts')

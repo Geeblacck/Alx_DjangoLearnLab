@@ -25,3 +25,11 @@ urlpatterns = [
     path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment-update'),     # update
     path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment-delete'),     # delete
 ]
+
+# blog/urls.py
+from .views import PostSearchView, PostListView
+
+urlpatterns += [
+    path('search/', PostSearchView.as_view(), name='post-search'),
+    path('tags/<str:tag_name>/', PostListView.as_view(), name='posts-by-tag'),
+]

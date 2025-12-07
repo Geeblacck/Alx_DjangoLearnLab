@@ -84,3 +84,20 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+
+
+# blog/views.py
+from django.db.models import Q
+
+class PostSearchView(ListView):
+    model = Post
+    template_name = 'blog/search_results.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
