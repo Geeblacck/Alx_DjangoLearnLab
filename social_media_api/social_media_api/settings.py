@@ -146,3 +146,10 @@ DEBUG = False
 
 # Add allowed hosts for your deployment
 ALLOWED_HOSTS = ['yourdomain.com', 'localhost', '127.0.0.1']
+
+
+# Security settings for production
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
