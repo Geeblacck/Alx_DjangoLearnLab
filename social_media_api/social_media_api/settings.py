@@ -139,3 +139,10 @@ REST_FRAMEWORK = {
     ],
 }
 
+
+
+# At the top or where DEBUG is defined
+DEBUG = False
+
+# Add allowed hosts for your deployment
+ALLOWED_HOSTS = ['yourdomain.com', 'localhost', '127.0.0.1']
